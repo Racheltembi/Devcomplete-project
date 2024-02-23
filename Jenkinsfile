@@ -9,14 +9,14 @@ pipeline {
             }
     }
 
-        //stage('SonarQube Analysis') {
-      //steps {
-        //script {
-          // requires SonarQube Scanner 2.8+
-         // scannerHome = tool 'SonarScanner'
+        stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
         }
-       // withSonarQubeEnv('Sonarqube Server') {
-         // sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=newsread-microservice-application"
+        withSonarQubeEnv('Sonarqube Server') {
+          sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=newsread-microservice-application"
         }
       
 
