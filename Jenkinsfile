@@ -9,17 +9,16 @@ pipeline {
             }
     }
 
-        stage('SonarQube Analysis') {
-      steps {
-        script {
+        //stage('SonarQube Analysis') {
+      //steps {
+        //script {
           // requires SonarQube Scanner 2.8+
-          scannerHome = tool 'SonarScanner'
+         // scannerHome = tool 'SonarScanner'
         }
-        withSonarQubeEnv('Sonarqube Server') {
-          sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=newsread-microservice-application"
+       // withSonarQubeEnv('Sonarqube Server') {
+         // sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=newsread-microservice-application"
         }
-      }
-    }
+      
 
         stage('Build Docker Images') {
             steps {
@@ -56,9 +55,8 @@ pipeline {
         //}
        
    // }
-        }    
-
-        post {
+            
+       post {
         always {
             // Always executed
                 sh 'docker rm news-service'
@@ -69,4 +67,3 @@ pipeline {
             sh 'docker logout'   
         }
     }
-}
